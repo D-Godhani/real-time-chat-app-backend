@@ -11,6 +11,13 @@ async function bootstrap() {
   app.useLogger(app.get(Logger));
   app.use(cookieParser());
   const configService = app.get(ConfigService);
+  const allowedOrigins =
+    configService.get<string>('WEB_APP_URL')?.split(',').map((origin) => origin.trim()) ??
+    true;
+  app.enableCors({
+    origin: allowedOrigins,
+    credentials: true,
+  });
   await app.listen(configService.getOrThrow('PORT'));
 }
 bootstrap();

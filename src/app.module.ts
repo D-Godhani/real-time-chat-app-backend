@@ -20,6 +20,8 @@ import { AuthService } from './auth/auth.service';
       isGlobal: true,
       validationSchema: Joi.object({
         MONGODB_URI: Joi.string().required(),
+        PORT: Joi.number().default(3000),
+        WEB_APP_URL: Joi.string(),
       }),
     }),
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
